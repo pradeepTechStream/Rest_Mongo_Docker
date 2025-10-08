@@ -32,6 +32,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Create new product")
     public Product create(@RequestBody Product product) {
         return service.saveProduct(product);
@@ -44,6 +45,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Delete product by id")
     public void delete(@PathVariable String id) {
         service.deleteProduct(id);
