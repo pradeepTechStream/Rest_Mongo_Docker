@@ -41,6 +41,16 @@ pipeline {
                                     docker run -d --name rest_mongo_docker -p 8080:8080 rest_mongo_docker:latest
                                     '''
                                 }
+        }
+        stage('Deploy to Kubernetes') {
+                    steps {
+                        writeFile file: 'kubeconfig.yaml', text: "${KUBECONFIG_CRED}"
+                        withEnv(["KUBECONFIG=${WORKSPACE}/kubeconfig.yaml"]) {
+                            sh 'kubectl apply -f k8s/deployment.yaml'
+                            sh 'kubectl apply -f k8s/service.yaml'
+                            sh 'kubectl rollout status deployment/my-rest-api'
+                        }
+                    }
                 }
     }
     post {

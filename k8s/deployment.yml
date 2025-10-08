@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-rest-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-rest-api
+  template:
+    metadata:
+      labels:
+        app: my-rest-api
+    spec:
+      containers:
+        - name: my-rest-api
+          image: pradeeptechstream/my-rest-api:latest
+          ports:
+            - containerPort: 8080
