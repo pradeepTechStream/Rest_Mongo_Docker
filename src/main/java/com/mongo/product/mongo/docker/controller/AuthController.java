@@ -27,7 +27,6 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody User user) {
         var dbUser = userRepository.findByUsername(user.getUsername()).orElseThrow();
