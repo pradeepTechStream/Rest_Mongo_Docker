@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: MongoRestAPI
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/productdb
+
+server:
+  port: 8081
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+jwt:
+  secret: "mySuperSecretKey12345-mySuperSecretKey12345-mySuperSecretKey12345" # use a strong key in production
+  expiration: 3600000 # 1 hour
