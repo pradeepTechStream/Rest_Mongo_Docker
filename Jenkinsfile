@@ -1,34 +1,42 @@
-pipeline{
+pipeline {
     agent any
-    tools{
+    tools {
         jdk 'JDK17'
     }
-    triggers{
+    triggers {
         cron('H/30 * * * *')
     }
-    stages{
-        stage('Checkout'){
-            steps{
-                git branch: 'main' url= 'https://github.com/pradeepTechStream/Rest_Mongo_Docker.git'
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/pradeepTechStream/todo-jenkin.git'
             }
         }
-        stage('build'){
-             steps{
+        stage('Build') {
+            steps {
                 bat 'mvn clean install'
-             }
+            }
         }
-        stage('test'){
-             steps{
+        stage('Docker Build') {
+            steps {
+                bat '''
+                echo Building Docker image...
+                docker build -t todo-app:latest .
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
                 bat 'mvn test'
-             }
+           }
         }
     }
-    post{
-        success{
-            echo 'Build and deployment success'
-        }
-        failure{
-            echo 'Build fail.'
-        }
+    post {
+       success {
+           echo "Build and deployment successful!"
+       }
+       failure {
+           echo "Build failed. Skipping deployment."
+       }
     }
 }
