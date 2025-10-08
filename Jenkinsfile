@@ -21,7 +21,7 @@ pipeline {
             steps {
                 bat '''
                 echo Building Docker image...
-                docker build -t Rest_Mongo_Docker:latest .
+                docker build -t rest_mongo_docker:latest .
                 '''
             }
         }
@@ -34,11 +34,11 @@ pipeline {
                                 steps {
                                     bat '''
                                     echo Stopping old container (if running)...
-                                    docker stop Rest_Mongo_Docker || echo "No container to stop"
-                                    docker rm Rest_Mongo_Docker || echo "No container to remove"
+                                    docker stop rest_mongo_docker || echo "No container to stop"
+                                    docker rm rest_mongo_docker || echo "No container to remove"
 
                                     echo Starting new container...
-                                    docker run -d --name Rest_Mongo_Docker -p 8080:8080 Rest_Mongo_Docker:latest
+                                    docker run -d --name rest_mongo_docker -p 8080:8080 rest_mongo_docker:latest
                                     '''
                                 }
                 }
