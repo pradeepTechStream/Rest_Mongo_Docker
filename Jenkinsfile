@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/pradeepTechStream/todo-jenkin.git'
+                git branch: 'main', url: 'https://github.com/pradeepTechStream/Rest_Mongo_Docker.git'
             }
         }
         stage('Build') {
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 bat '''
                 echo Building Docker image...
-                docker build -t todo-app:latest .
+                docker build -t Rest_Mongo_Docker:latest .
                 '''
             }
         }
