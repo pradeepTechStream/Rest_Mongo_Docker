@@ -30,6 +30,18 @@ pipeline {
                 bat 'mvn test'
            }
         }
+        stage('Docker Deploy') {
+                                steps {
+                                    bat '''
+                                    echo Stopping old container (if running)...
+                                    docker stop Rest_Mongo_Docker || echo "No container to stop"
+                                    docker rm Rest_Mongo_Docker || echo "No container to remove"
+
+                                    echo Starting new container...
+                                    docker run -d --name Rest_Mongo_Docker -p 8080:8080 Rest_Mongo_Docker:latest
+                                    '''
+                                }
+                }
     }
     post {
        success {
